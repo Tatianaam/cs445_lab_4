@@ -22,8 +22,27 @@ public interface StreamingRadio {
 
     /**
      * Adds a new song to the system.
+     *
+     * <p> If newSong is not null, this set does not contain newSong, and this
+     * set has available capacity (if fixed), then addSong modifies the set so that
+     * it contains newSong. All other songs remain unmodified. Duplicates are
+     * determined using the .equals() method.
+     *
+     * <p> If newSong is null, then addSong throws IllegalArgumentException without
+     * modifying the set. If this set already contains newSong, then addSong
+     * returns false without modifying the set. If this set has a capacity
+     * limit, and does not have available capacity, then add throws
+     * SetFullException without modifying the set.
+     *
+     * @param newSong  The object to be added as a new song
+     * @return  true if the addition is successful; false if the item already is
+     * in this set
+     * @throws SetFullException  If this set has a fixed capacity and does not
+     * have the capacity to store an additional song
+     * @throws IllegalArgumentException  If newSong is null
      */
-    void addSong();
+    public boolean addSong(Song newSong)
+    throws SetFullException, IllegalArgumentException;
 
     /**
      * Removes an existing song from the system.
@@ -74,4 +93,3 @@ public interface StreamingRadio {
     void suggestSong();
 
 }
-
