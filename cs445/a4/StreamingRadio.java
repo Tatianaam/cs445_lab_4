@@ -46,8 +46,22 @@ public interface StreamingRadio {
 
     /**
      * Removes an existing song from the system.
+     *
+     *
+     * <p> If this set contains the theSong, removeSong will modify the set so that it
+     * no longer contains theSong. All other songs remain unmodified. Locating
+     * this theSong is accomplished using the .equals() method.
+     *
+     * <p> If this set does not contain theSong, removeSong will return false without
+     * modifying the set. If theSong is null, then removeSong throws
+     * IllegalArgumentException without modifying the set.
+     *
+     * @param theSong  The entry to be removed
+     * @return  true if the removal was successful; false if not
+     * @throws IllegalArgumentException  If song is null
      */
-    void removeSong();
+    public boolean removeSong(Song theSong)
+    throws IllegalArgumentException;
 
     /**
      * Adds an existing song to the playlist for an existing radio station.
