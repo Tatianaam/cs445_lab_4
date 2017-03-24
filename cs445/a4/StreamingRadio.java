@@ -70,8 +70,22 @@ public interface StreamingRadio {
 
     /**
      * Removes a song from the playlist for a radio station.
+     *
+     * If this set contains theSong, removeFromStation will modify the set so that it
+     * no longer contains theSong. All other songs remain unmodified. Locating
+     * this theSong is accomplished using the .equals() method.
+     * If this set does not contain theSong, removeFromStation will return false without
+     * modifying the set. 
+     * If theSong or the Station is null, then removeFromStation throws
+     * NullPointerException without modifying the set.
+     *
+     * @param theSong  song that should be removed
+     * @param theStation  station from which the song is removed 
+     * @return  true if the removal was successful; false if not
+     * @throws NullPointerException if song or station is null
      */
-    void removeFromStation();
+    public boolean removeFromStation(Song theSong, Station the Station)
+    throws NullPointerException;
 
     /**
      * Sets a user's rating for a song, as either "like" or "dislike".
