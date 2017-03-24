@@ -65,8 +65,42 @@ public interface StreamingRadio {
 
     /**
      * Adds an existing song to the playlist for an existing radio station.
+     *
+     * по логике у station не должна быть ограничена capacity, т.к. радио играет непрерывно
+     * но у тебя в описании метода добавления в систему прописано (if fixed)
+     * значит по сути и при добавлении песни в какой-то station лучше проверить
+     * 
+     * также здесь написано, что song добавляется в playlist for an existing radio station
+     * но изначально данное название метода - addToStation, где про плейлист ничего нет
+     * получается слово плейлист здесь ничео не значит и добавляем мы просто в station?
+     * судя по всему да, но мало ли =D 
+     *
+     * а еще кстати в двух методах выше почему у тебя если параметр null, то IllegalArgumentException
+     * вроде бы должно быть NullPointerException?..
+     *
+     * <p> If theSong and theStation are not null, theStation does not contain theSong 
+     * and this set (или station?) has available capacity (if fixed),
+     * then addToStation modifies the set so that it contains theSong.
+     * All other songs remain unmodified. Duplicates are
+     * determined using the .equals() method.
+     *
+     * <p> If theSong or theStation is null, then addToStation throws NullPointerException 
+     * without modifying the set. If this set already contains theSong, then addToStation
+     * returns false without modifying the set. 
+     * а кстати разве не может быть в одном плейлисте одна и та же песня несколько раз? На радио же крутят то же самое..
+     * If this set has a capacity limit, and does not have available capacity, 
+     * then add throws SetFullException without modifying the set.
+     *
+     * @param theSong  song which should be added to the station
+     * @param theStation station to which theSong should be added 
+     * @return  true if the addition is successful; false if the item already is
+     * in this set
+     * @throws SetFullException if this set has a fixed capacity and does not
+     * have the capacity to add this song (если все же у плейлиста будет капэсити)
+     * @throws NullPointerException if theSong or theStation is null
      */
-    void addToStation();
+    public boolean addToStation(Song theSong, Station theStation);
+    throws SetFullException, NullPointerException;
 
     /**
      * Removes a song from the playlist for a radio station.
